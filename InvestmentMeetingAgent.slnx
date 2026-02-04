@@ -1,1 +1,4 @@
-<Solution />
+<Solution>
+  <Project Path="InvestmentMeeting.Function/InvestmentMeeting.Function.csproj" Id="4ce5b7ff-993b-48d6-862e-ce75d397ed9c" />
+  <Project Path="InvestmentMeeting.WebApp/InvestmentMeeting.WebApp.csproj" Id="fd6b0f4f-b149-4889-84dd-32384bf462d9" />
+</Solution>
