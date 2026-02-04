@@ -1,19 +1,25 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+using InvestmentMeeting.WebApp;
+using Microsoft.Agents.Core;
+using Microsoft.Agents.Hosting.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+// Register the agent services
+builder.Services.AddTransient<IBot, MeetingAgent>();
+builder.Services.AddCloudAdapter();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) {
-}
-
 app.UseHttpsRedirection();
+
+// Map the agent's message endpoint
+app.MapPost("/api/messages", async (HttpRequest req, IBotHttpAdapter adapter, IBot agent) =>
+{
+    await adapter.ProcessAsync(req, req.HttpContext.Response, agent);
+});
 
 var summaries = new[]
 {
